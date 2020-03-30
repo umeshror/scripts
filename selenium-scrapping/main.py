@@ -29,7 +29,7 @@ class TestLogin():
         """
         return self.driver.current_url
 
-    def test_login(self):
+    def test_login(self, to_email_id):
         """
         Test if login get successful with correct username anf password
         """
@@ -48,6 +48,7 @@ class TestLogin():
         if time_taken > 120:
             if self.current_url != self.url:
                 print('login was successful, but took {} seconds'.format(time_taken))
+                self.send_mail(to_email_id, "Login failed, took more than 2 minutes")
             else:
                 print('login failed, took more {} seconds'.format(time_taken))
             return False
@@ -87,4 +88,4 @@ class TestLogin():
 
 if __name__ == "__main__":
     tl = TestLogin()
-    tl.test_login()
+    tl.test_login('test@example.com')
